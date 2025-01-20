@@ -5,50 +5,49 @@ This is a component diagram illustrating the overall architecture of the social 
 ```mermaid
 graph LR
     subgraph "User Workstation"
-        UI(<<application>> User Interface)
+        UI[<<application>> User Interface]
+        style UI fill:#fff,stroke:#000,stroke-width:2px
     end
 
     subgraph "App Server"
-        AUTH(<<service>> Authentication)
-        LS(<<application>> Link Sharing)
-        AS(<<application>> Auto-Sharing)
-         AN(<<service>> Analytics)
-         BM(<<service>> Bot Management)
-         PM(<<application>> Profile Management)
-          NLP(<<service>> NLP Processor)
+        AUTH[<<service>> Authentication]
+         style AUTH fill:#fff,stroke:#000,stroke-width:2px
+        LS[<<application>> Link Sharing]
+         style LS fill:#fff,stroke:#000,stroke-width:2px
+        AS[<<application>> Auto-Sharing]
+         style AS fill:#fff,stroke:#000,stroke-width:2px
+        AN[<<service>> Analytics]
+        style AN fill:#fff,stroke:#000,stroke-width:2px
+        BM[<<service>> Bot Management]
+         style BM fill:#fff,stroke:#000,stroke-width:2px
+        PM[<<application>> Profile Management]
+        style PM fill:#fff,stroke:#000,stroke-width:2px
+        NLP[<<service>> NLP Processor]
+         style NLP fill:#fff,stroke:#000,stroke-width:2px
     end
-    
-    ACDB(<<datastore>> Account Database)
-    ANDB(<<datastore>> Analytics Database)
-     PDB(<<datastore>> Profile Database)
 
-    UI -- https --> AUTH
-    UI -- rest --> LS
-     UI -- rest --> AN
-    UI -- rest --> BM
-    UI -- rest --> PM
-    LS -- internal --> AS
-    AS -- link --> PI(Platform Integration)
-    
-     AUTH -- saml --> ACDB
-       AN  -- odbc --> ANDB
-    PM -- odbc --> PDB
+    ACDB[<<datastore>> Account Database]
+     style ACDB fill:#fff,stroke:#000,stroke-width:2px
+    ANDB[<<datastore>> Analytics Database]
+      style ANDB fill:#fff,stroke:#000,stroke-width:2px
+     PDB[<<datastore>> Profile Database]
+       style PDB fill:#fff,stroke:#000,stroke-width:2px
+        AL[<<datastore>> Affiliate Link]
+         style AL fill:#fff,stroke:#000,stroke-width:2px
+
+        PI(Platform Integration)
+         style PI fill:#fff,stroke:#000,stroke-width:2px
+  
+    UI -- https --o AUTH
+    UI -- rest --o LS
+     UI -- rest --o AN
+    UI -- rest --o BM
+    UI -- rest --o PM
+    LS -- internal --o AS
+    AS -- link --o PI
+     AUTH -- saml --o ACDB
+    AN -- odbc --o ANDB
+       PM -- odbc --o PDB
+     LS -- internal --o AL
+       AS -- internal --o AL
    
-     AL(<<datastore>> Affiliate Link)
-      LS -- internal --> AL
-      AS -- internal --> AL
-
-      
-    style UI fill:#f9f,stroke:#333,stroke-width:2px
-    style AUTH fill:#ccf,stroke:#333,stroke-width:2px
-    style LS fill:#f9f,stroke:#333,stroke-width:2px
-    style AS fill:#f9f,stroke:#333,stroke-width:2px
-     style AN fill:#ccf,stroke:#333,stroke-width:2px
-      style BM fill:#ccf,stroke:#333,stroke-width:2px
-      style PM fill:#f9f,stroke:#333,stroke-width:2px
-        style NLP fill:#ccf,stroke:#333,stroke-width:2px
-    style ACDB fill:#aaf,stroke:#333,stroke-width:2px
-       style ANDB fill:#aaf,stroke:#333,stroke-width:2px
-        style PDB fill:#aaf,stroke:#333,stroke-width:2px
-          style AL fill:#aaf,stroke:#333,stroke-width:2px
-     style PI fill:#ddd,stroke:#333,stroke-width:2px
