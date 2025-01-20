@@ -4,50 +4,51 @@ This is a component diagram illustrating the overall architecture of the social 
 
 ```mermaid
 graph LR
-    subgraph "User Workstation"
-        UI[<<application>> User Interface]
-        style UI fill:#fff,stroke:#000,stroke-width:2px
-    end
-
     subgraph "App Server"
-        AUTH[<<service>> Authentication]
-         style AUTH fill:#fff,stroke:#000,stroke-width:2px
-        LS[<<application>> Link Sharing]
+        UI[<<component>> User Interface]
+          style UI fill:#fff,stroke:#000,stroke-width:2px
+
+        AUTH(<<component>> Authentication)
+          style AUTH fill:#fff,stroke:#000,stroke-width:2px
+        LS[<<component>> Link Sharing]
          style LS fill:#fff,stroke:#000,stroke-width:2px
-        AS[<<application>> Auto-Sharing]
-         style AS fill:#fff,stroke:#000,stroke-width:2px
-        AN[<<service>> Analytics]
-        style AN fill:#fff,stroke:#000,stroke-width:2px
-        BM[<<service>> Bot Management]
-         style BM fill:#fff,stroke:#000,stroke-width:2px
-        PM[<<application>> Profile Management]
-        style PM fill:#fff,stroke:#000,stroke-width:2px
-        NLP[<<service>> NLP Processor]
-         style NLP fill:#fff,stroke:#000,stroke-width:2px
+        AS[<<component>> Auto-Sharing]
+           style AS fill:#fff,stroke:#000,stroke-width:2px
+        AN[<<component>> Analytics]
+         style AN fill:#fff,stroke:#000,stroke-width:2px
+        BM[<<component>> Bot Management]
+        style BM fill:#fff,stroke:#000,stroke-width:2px
+       PM[<<component>> Profile Management]
+         style PM fill:#fff,stroke:#000,stroke-width:2px
+       NLP[<<component>> NLP Processor]
+       style NLP fill:#fff,stroke:#000,stroke-width:2px
     end
 
-    ACDB[<<datastore>> Account Database]
+     ACDB(<<datastore>> Account Database)
      style ACDB fill:#fff,stroke:#000,stroke-width:2px
-    ANDB[<<datastore>> Analytics Database]
-      style ANDB fill:#fff,stroke:#000,stroke-width:2px
-     PDB[<<datastore>> Profile Database]
+    ANDB(<<datastore>> Analytics Database)
+    style ANDB fill:#fff,stroke:#000,stroke-width:2px
+     PDB(<<datastore>> Profile Database)
        style PDB fill:#fff,stroke:#000,stroke-width:2px
-        AL[<<datastore>> Affiliate Link]
+        AL(<<datastore>> Affiliate Link)
          style AL fill:#fff,stroke:#000,stroke-width:2px
 
-        PI(Platform Integration)
-         style PI fill:#fff,stroke:#000,stroke-width:2px
-  
-    UI -- https --o AUTH
-    UI -- rest --o LS
-     UI -- rest --o AN
-    UI -- rest --o BM
-    UI -- rest --o PM
-    LS -- internal --o AS
-    AS -- link --o PI
-     AUTH -- saml --o ACDB
-    AN -- odbc --o ANDB
-       PM -- odbc --o PDB
-     LS -- internal --o AL
-       AS -- internal --o AL
+         PI(<<component>> Platform Integration)
+          style PI fill:#fff,stroke:#000,stroke-width:2px
+
+
+    UI --o  AUTH
+    UI --o  LS
+     UI --o AN
+     UI --o BM
+      UI --o PM
+
+
+      LS --o AS
+         AS --o PI
+     AUTH --o ACDB
+    AN --o ANDB
+    PM --o PDB
+   AL --o NLP
+    
    
